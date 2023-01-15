@@ -1,0 +1,5 @@
+*env
+Pipfile*
+build/
+dist/
+*.egg-info/

@@ -6,8 +6,8 @@
 # openpyxl_style_writer
 This is a wrapper base on [openpyxl](https://pypi.org/project/openpyxl/) package. The original feature to create resuable style ([NameStyled](https://openpyxl.readthedocs.io/en/stable/styles.html#creating-a-named-style)) is not avaliable for [write only mode](https://openpyxl.readthedocs.io/en/stable/optimized.html#write-only-mode). Thus this package aimed to provide a easy way for user to create resuable styles and use it on [write only mode](https://openpyxl.readthedocs.io/en/stable/optimized.html#write-only-mode) easily
 
-# Install
-Comming soon
+# Installation
+```$ pip install openpyxl_style_writer ```
 
 # Example
 ```python
