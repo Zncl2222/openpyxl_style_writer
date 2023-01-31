@@ -129,20 +129,6 @@ custom_title_style = CustomStyle(
 
 ### List of Key words in openpyxl_style_writer
 This is a list of the key words in openpyxl_style_writer and how it map to the attributes of openpyxl
-<style>
-table th:first-of-type {
-    width: 10%;
-}
-table th:nth-of-type(2) {
-    width: 10%;
-}
-table th:nth-of-type(3) {
-    width: 10%;
-}
-table th:nth-of-type(4) {
-    width: 50%;
-}
-</style>
 
 <div align='center'>
 
