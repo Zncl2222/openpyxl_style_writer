@@ -1,5 +1,6 @@
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
+from openpyxl.styles import Protection
 from openpyxl.utils import get_column_letter
 
 from .style import DefaultStyle
@@ -31,12 +32,13 @@ class RowWriter:
     def get_current_sheet(self):
         return self.ws
 
-    def row_append(self, value, style=DefaultStyle()):
+    def row_append(self, value, style=DefaultStyle(), **kwargs):
         cell = WriteOnlyCell(self.ws, value=value)
         cell.font = style.font
         cell.fill = style.fill
         cell.alignment = style.ali
         cell.border = style.border
+        cell.protection = Protection(locked=kwargs.get('protect', True))
 
         self.__row_list.append(cell)
 
