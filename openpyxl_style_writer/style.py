@@ -1,4 +1,4 @@
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Protection, Side
 
 
 class DefaultStyle:
@@ -39,6 +39,10 @@ class DefaultStyle:
     border_color_right = 'ff000000'
     border_color_left = 'ff000000'
     border_color_bottom = 'ff000000'
+
+    # protect
+    protect = False
+    protection = Protection(locked=False)
 
     font = Font(
         size=font_size,
@@ -112,6 +116,9 @@ class DefaultStyle:
             cls.border_color_left = kwargs.get('border_color_left', cls.border_color_left)
             cls.border_color_bottom = kwargs.get('border_color_bottom', cls.border_color_bottom)
 
+        if kwargs.get('protect'):
+            cls.protect = kwargs.get('protect')
+        print(cls.protect)
         cls.apply_settings()
 
     @classmethod
@@ -162,6 +169,9 @@ class DefaultStyle:
                 ),
             )
 
+        if cls.protect is True:
+            cls.protection = Protection(locked=True)
+
 
 class CustomStyle(DefaultStyle):
     font_params = None
@@ -205,6 +215,9 @@ class CustomStyle(DefaultStyle):
             self.border_color_right = kwargs.get('border_color_right', self.border_color_right)
             self.border_color_left = kwargs.get('border_color_left', self.border_color_left)
             self.border_color_bottom = kwargs.get('border_color_bottom', self.border_color_bottom)
+
+        if kwargs.get('protect'):
+            self.protect = True
 
         self.apply_settings()
 
@@ -254,3 +267,6 @@ class CustomStyle(DefaultStyle):
                     color=self.border_color_bottom,
                 ),
             )
+
+        if self.protect is True:
+            self.protection = Protection(locked=True)
