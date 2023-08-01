@@ -1,6 +1,5 @@
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
-from openpyxl.styles import Protection
 from openpyxl.utils import get_column_letter
 
 from .style import DefaultStyle
@@ -11,8 +10,9 @@ class RowWriter:
         self.wb = Workbook(write_only=True)
         self.__row_list = []
 
-    def create_sheet(self, title: str):
+    def create_sheet(self, title: str, protection: bool = False):
         self.ws = self.wb.create_sheet(title)
+        self.ws.protection.sheet = protection
 
     def switch_current_sheet(self, sheet: str):
         self.ws = self.wb[sheet]
@@ -38,7 +38,7 @@ class RowWriter:
         cell.fill = style.fill
         cell.alignment = style.ali
         cell.border = style.border
-        cell.protection = Protection(locked=kwargs.get('protect', True))
+        cell.protection = style.protection
 
         self.__row_list.append(cell)
 
@@ -49,6 +49,7 @@ class RowWriter:
             cell.fill = style.fill
             cell.alignment = style.ali
             cell.border = style.border
+            cell.protection = style.protection
 
             self.__row_list.append(cell)
 
