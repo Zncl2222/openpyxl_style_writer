@@ -44,6 +44,9 @@ class DefaultStyle:
     protect = False
     protection = Protection(locked=False)
 
+    # format
+    number_format = 'General'
+
     font = Font(
         size=font_size,
         name=font_name,
@@ -116,9 +119,14 @@ class DefaultStyle:
             cls.border_color_left = kwargs.get('border_color_left', cls.border_color_left)
             cls.border_color_bottom = kwargs.get('border_color_bottom', cls.border_color_bottom)
 
+        # protection setting
         if kwargs.get('protect'):
             cls.protect = kwargs.get('protect')
-        print(cls.protect)
+
+        # number format setting
+        if kwargs.get('number_format'):
+            cls.number_format = kwargs.get('number_format')
+
         cls.apply_settings()
 
     @classmethod
@@ -218,6 +226,9 @@ class CustomStyle(DefaultStyle):
 
         if kwargs.get('protect'):
             self.protect = True
+
+        if kwargs.get('number_format'):
+            self.number_format = kwargs.get('number_format')
 
         self.apply_settings()
 
