@@ -1,21 +1,16 @@
 from setuptools import setup
-from dotenv import load_dotenv
-from pathlib import Path
-import os
 
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
 
-author = os.getenv('AUTHOR')
-email = os.getenv('EMAIL')
-url = os.getenv('URL')
+author = 'Zncl2222'
+email = 'zwebapplication@gmail.com'
+url = 'https://github.com/Zncl2222/openpyxl_style_writer'
 
 with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(
     name='openpyxl_style_writer',
-    version='1.0.2',
+    version='1.1.0',
     description='A wrapper for openpyxl to create and use resualbe style in write only mode',
     long_description=long_description,
     long_description_content_type='text/markdown',
