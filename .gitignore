@@ -1,5 +1,5 @@
 *env
-Pipfile*
+Pipfile.lock
 build/
 dist/
 *.egg-info/
