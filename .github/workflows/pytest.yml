@@ -1,0 +1,62 @@
+name: Unit test
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  python_test:
+    name: py-unittest
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 5
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+      - name: Run tests to generate coverage statistics
+        run: |
+          pipenv run pytest --cov --cov-report xml:py_coverage.xml
+      - uses: actions/upload-artifact@v3
+        with:
+          name: python-coverage
+          path: ./py_coverage.xml
+
+  python_test_windows:
+    name: py-unittest-windows
+    runs-on: windows-latest
+
+    strategy:
+      max-parallel: 5
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+      - name: Run tests to generate coverage statistics
+        run: |
+          pipenv run pytest --cov --cov-report xml:py_coverage.xml
