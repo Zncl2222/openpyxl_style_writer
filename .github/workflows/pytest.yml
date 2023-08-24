@@ -26,11 +26,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install pipenv
-          pipenv install --dev
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       - name: Run tests to generate coverage statistics
         run: |
-          pipenv run pytest --cov --cov-report xml:py_coverage.xml
+          pytest --cov --cov-report xml:py_coverage.xml
       - uses: actions/upload-artifact@v3
         with:
           name: python-coverage
@@ -55,8 +55,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install pipenv
-          pipenv install --dev
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       - name: Run tests to generate coverage statistics
         run: |
-          pipenv run pytest --cov --cov-report xml:py_coverage.xml
+          pytest --cov --cov-report xml:py_coverage.xml
