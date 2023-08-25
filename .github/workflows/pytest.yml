@@ -35,6 +35,17 @@ jobs:
         with:
           name: python-coverage
           path: ./py_coverage.xml
+      - name: Upload coverage reports to Codecov
+        if: matrix.python-version == '3.11'
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage reports as artifact
+        uses: actions/upload-artifact@v2
+        if: matrix.python-version == '3.11'
+        with:
+          name: python-coverage
+          path: ./py_coverage.xml
 
   python_test_windows:
     name: py-unittest-windows
