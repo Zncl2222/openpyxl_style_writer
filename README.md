@@ -1,5 +1,7 @@
 ![licence](https://img.shields.io/github/license/Zncl2222/openpyxl_style_writer)
-[![ci](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/github-pre-commit.yml/badge.svg)](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/github-pre-commit.yml)
+[![ci](https://img.shields.io/github/actions/workflow/status/Zncl2222/openpyxl_style_writer/github-pre-commit.yml?logo=pre-commit&label=pre-commit)](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/github-pre-commit.yml)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Zncl2222/openpyxl_style_writer/pytest.yml?logo=pytest&label=pytest)](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/pytest.yml)
+[![codecov](https://codecov.io/gh/Zncl2222/openpyxl_style_writer/graph/badge.svg?token=UP6M8SCC14)](https://codecov.io/gh/Zncl2222/openpyxl_style_writer)
 ![language](https://img.shields.io/badge/Solutions-black.svg?style=flat&logo=python)
 
 
