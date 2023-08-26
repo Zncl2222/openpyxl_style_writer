@@ -200,3 +200,191 @@ class TestStyles:
         custom_style = CustomStyle(protect=protect)
         assert custom_style.protect == expected_protection
         assert custom_style.protection == Protection(locked=expected_protection)
+
+
+@pytest.mark.style
+class TestStylesArgs:
+    @pytest.mark.parametrize(
+        'font_settings, expected_font_size, expected_font_bold,'
+        + 'expected_font_color, expected_font_name',
+        [
+            (
+                {
+                    'font_size': 16,
+                    'font_bold': True,
+                    'font_color': 'cccccc',
+                    'font_name': 'Calibri',
+                },
+                16,
+                True,
+                'cccccc',
+                'Calibri',
+            ),
+            (
+                {
+                    'font_size': 19,
+                    'font_bold': False,
+                    'font_color': '00ff00',
+                    'font_name': 'Arial',
+                },
+                19,
+                False,
+                '00ff00',
+                'Arial',
+            ),
+        ],
+    )
+    def test_font_style(
+        self,
+        font_settings,
+        expected_font_size,
+        expected_font_bold,
+        expected_font_color,
+        expected_font_name,
+    ):
+        DefaultStyle.set_default(**font_settings)
+
+        assert DefaultStyle.font_size == expected_font_size
+        assert DefaultStyle.font_bold == expected_font_bold
+        assert DefaultStyle.font_name == expected_font_name
+        assert DefaultStyle.font_color == expected_font_color
+
+        custom = CustomStyle(**font_settings)
+
+        assert custom.font_size == expected_font_size
+        assert custom.font_bold == expected_font_bold
+        assert custom.font_name == expected_font_name
+        assert custom.font_color == expected_font_color
+
+    @pytest.mark.parametrize(
+        'fill_settings, expected_fill_color',
+        [
+            (
+                {'fill_color': 'cccccc'},
+                'cccccc',
+            ),
+            (
+                {'fill_color': 'ff0000'},
+                'ff0000',
+            ),
+        ],
+    )
+    def test_fill_style(
+        self,
+        fill_settings,
+        expected_fill_color,
+    ):
+        DefaultStyle.set_default(**fill_settings)
+        assert DefaultStyle.fill_color == expected_fill_color
+
+        custom = CustomStyle(**fill_settings)
+        assert custom.fill_color == expected_fill_color
+
+    @pytest.mark.parametrize(
+        'border_settings, expected_border_top, expected_border_right,'
+        + 'expected_border_left, expected_border_bottom',
+        [
+            (
+                {
+                    'border_style_top': None,
+                    'border_style_right': 'dashDot',
+                    'border_style_left': 'dashed',
+                    'border_style_bottom': 'double',
+                    'border_color_top': 'ff000000',
+                    'border_color_right': '00000000',
+                    'border_color_left': '00993366',
+                    'border_color_bottom': '00FF99CC',
+                },
+                (None, 'ff000000'),
+                ('dashDot', '00000000'),
+                ('dashed', '00993366'),
+                ('double', '00FF99CC'),
+            ),
+            (
+                {
+                    'border_style_top': 'hair',
+                    'border_style_right': 'medium',
+                    'border_style_left': 'mediumDashDot',
+                    'border_style_bottom': 'mediumDashDotDot',
+                    'border_color_top': '00080000',
+                    'border_color_right': '00808000',
+                    'border_color_left': '00CCFFCC',
+                    'border_color_bottom': '00FFFF00',
+                },
+                ('hair', '00080000'),
+                ('medium', '00808000'),
+                ('mediumDashDot', '00CCFFCC'),
+                ('mediumDashDotDot', '00FFFF00'),
+            ),
+        ],
+    )
+    def test_border_style(
+        self,
+        border_settings,
+        expected_border_top,
+        expected_border_right,
+        expected_border_left,
+        expected_border_bottom,
+    ):
+        DefaultStyle.set_default(**border_settings)
+        assert (DefaultStyle.border_style_top, DefaultStyle.border_color_top) == expected_border_top
+        assert (
+            DefaultStyle.border_style_right,
+            DefaultStyle.border_color_right,
+        ) == expected_border_right
+        assert (
+            DefaultStyle.border_style_left,
+            DefaultStyle.border_color_left,
+        ) == expected_border_left
+        assert (
+            DefaultStyle.border_style_bottom,
+            DefaultStyle.border_color_bottom,
+        ) == expected_border_bottom
+
+        custom = CustomStyle(**border_settings)
+        assert (custom.border_style_top, custom.border_color_top) == expected_border_top
+        assert (custom.border_style_right, custom.border_color_right) == expected_border_right
+        assert (custom.border_style_left, custom.border_color_left) == expected_border_left
+        assert (custom.border_style_bottom, custom.border_color_bottom) == expected_border_bottom
+
+    @pytest.mark.parametrize(
+        'ali_settings, expected_ali_horizontal, expected_ali_vertical, expected_ali_wrap_text',
+        [
+            (
+                {
+                    'ali_horizontal': 'general',
+                    'ali_vertical': 'bottom',
+                    'ali_wrap_text': False,
+                },
+                'general',
+                'bottom',
+                False,
+            ),
+            (
+                {
+                    'ali_horizontal': 'distributed',
+                    'ali_vertical': 'top',
+                    'ali_wrap_text': True,
+                },
+                'distributed',
+                'top',
+                True,
+            ),
+        ],
+    )
+    def test_alignment_style(
+        self,
+        ali_settings,
+        expected_ali_horizontal,
+        expected_ali_vertical,
+        expected_ali_wrap_text,
+    ):
+        DefaultStyle.set_default(**ali_settings)
+        assert DefaultStyle.ali_horizontal == expected_ali_horizontal
+        assert DefaultStyle.ali_vertical == expected_ali_vertical
+        assert DefaultStyle.ali_wrap_text == expected_ali_wrap_text
+
+        custom = CustomStyle(**ali_settings)
+        assert custom.ali_horizontal == expected_ali_horizontal
+        assert custom.ali_vertical == expected_ali_vertical
+        assert custom.ali_wrap_text == expected_ali_wrap_text
