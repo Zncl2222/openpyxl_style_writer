@@ -136,7 +136,57 @@ custom_title_style = CustomStyle(
 )
 ```
 
-### List of Key words in openpyxl_style_writer
+## Advanced Usuage
+
+In scenarios where you want to establish a collection of reusable styles for your Excel documents or if you have a variety of different Excel outputs, you can define a base class containing multiple custom styles and then inherit from this base class in your Excel class.
+
+The following example demonstrates how to achieve this using the openpyxl_style_writer library:
+
+
+```python
+from openpyxl_style_writer import RowWriter
+from openpyxl_style_writer import CustomStyle
+
+
+class BaseExcelWriter(RowWriter):
+    blue_font = {
+        'color': '0000ff',
+        'bold': True,
+        'size': 15,
+    }
+    cyan_title_pattern = {
+        'patternType': 'solid',
+        'fgColor': '00ffff	'
+    }
+    blue_font_style = CustomStyle(font_params=blue_font)
+    cyan_fill_style = CustomStyle(fill_params=cyan_title_pattern)
+
+
+class ExampleExcel(BaseExcelWriter):
+    first_row = ['Apple', 'Banana', 'Cat']
+
+    def create(self, file_name='output.xlsx'):
+        self.create_sheet('ExampleSheet', protection=True)
+        self.row_append_list(first_row, style=self.cyan_fill_style)
+        self.create_row()
+        for idx, _ in enumerate(self.first_row):
+            self.row_append(idx, style=self.blue_font_style)
+        self.create_row()
+        self.save(file_name)
+
+
+class ExampleExcel2(BaseExcelWriter):
+
+    def create(self, file_name='output.xlsx'):
+        # create a content of excel2...
+
+if __name__ == '__main__':
+    example = ExampleExcel()
+    example.create('example.xlsx')
+```
+
+
+## List of Key words in openpyxl_style_writer
 This is a list of the key words in openpyxl_style_writer and how it map to the attributes of openpyxl
 
 <div align='center'>
