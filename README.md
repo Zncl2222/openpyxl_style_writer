@@ -14,8 +14,7 @@ This is a wrapper base on [openpyxl](https://pypi.org/project/openpyxl/) package
 # Usuage
 ### Example
 ```python
-from openpyxl_style_writer import RowWriter
-from openpyxl_style_writer import DefaultStyle, CustomStyle
+from openpyxl_style_writer import CustomStyle, DefaultStyle, RowWriter
 
 
 if __name__ == '__main__':
@@ -87,7 +86,7 @@ custom_title_style = CustomStyle(
 You could also set your `DefaultStyle` first, and the rest of the `CustomStyle` will follow the settings of `DefaultStyle` if the style do not set in `CustomStyle`.
 
 ```python
-from openpyxl_style_writer import DefaultStyle, CustomStyle
+from openpyxl_style_writer import CustomStyle, DefaultStyle
 
 cyan_title_pattern = {
     'patternType': 'solid',
@@ -144,8 +143,7 @@ The following example demonstrates how to achieve this using the openpyxl_style_
 
 
 ```python
-from openpyxl_style_writer import RowWriter
-from openpyxl_style_writer import CustomStyle
+from openpyxl_style_writer import CustomStyle, RowWriter
 
 
 class BaseExcelWriter(RowWriter):
@@ -167,7 +165,7 @@ class ExampleExcel(BaseExcelWriter):
 
     def create(self, file_name='output.xlsx'):
         self.create_sheet('ExampleSheet', protection=True)
-        self.row_append_list(first_row, style=self.cyan_fill_style)
+        self.row_append_list(self.first_row, style=self.cyan_fill_style)
         self.create_row()
         for idx, _ in enumerate(self.first_row):
             self.row_append(idx, style=self.blue_font_style)
