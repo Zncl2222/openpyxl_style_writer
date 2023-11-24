@@ -39,6 +39,7 @@ class RowWriter:
         cell.alignment = style.ali
         cell.border = style.border
         cell.protection = style.protection
+        cell.number_format = style.number_format
 
         self.__row_list.append(cell)
 
