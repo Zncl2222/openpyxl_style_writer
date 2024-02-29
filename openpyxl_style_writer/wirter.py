@@ -1,5 +1,6 @@
 from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
+from openpyxl.styles import Protection
 from openpyxl.utils import get_column_letter
 
 from .style import DefaultStyle
@@ -40,6 +41,12 @@ class RowWriter:
         cell.border = style.border
         cell.protection = style.protection
         cell.number_format = style.number_format
+
+        if kwargs.get('protect'):
+            cell.protection = Protection(locked=kwargs['protect'])
+
+        if kwargs.get('number_format'):
+            cell.number_format = kwargs['number_format']
 
         self.__row_list.append(cell)
 
