@@ -11,7 +11,7 @@ This is a wrapper base on [openpyxl](https://pypi.org/project/openpyxl/) package
 # Installation
 ```$ pip install openpyxl_style_writer ```
 
-# Usuage
+# Usage
 ### Example
 ```python
 from openpyxl_style_writer import CustomStyle, DefaultStyle, RowWriter
@@ -135,7 +135,7 @@ custom_title_style = CustomStyle(
 )
 ```
 
-## Advanced Usuage
+## Advanced Usage
 
 In scenarios where you want to establish a collection of reusable styles for your Excel documents or if you have a variety of different Excel outputs, you can define a base class containing multiple custom styles and then inherit from this base class in your Excel class.
 
