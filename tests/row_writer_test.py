@@ -15,7 +15,7 @@ class TestRowWriter:
 
     sheet_name = 'test'
 
-    def setup(self) -> None:
+    def setup_method(self) -> None:
         self.rw = RowWriter()
         self.rw.create_sheet(self.sheet_name)
         self.rw.set_cell_width(1, 15)
@@ -38,6 +38,9 @@ class TestRowWriter:
         self.rw.row_append('Hello')
         self.rw.create_row()
 
+        self.rw.row_append(196632.124555, protect=True, number_format='#,##0.00')
+        self.rw.create_row()
+
         saved_filename = 'test_output.xlsx'
         self.rw.save(saved_filename)
 
@@ -53,7 +56,6 @@ class TestRowWriter:
 
         saved_filename = 'test_output.xlsx'
         self.rw.save(saved_filename)
-
         wb = load_workbook(saved_filename)
         ws = wb[self.sheet_name]
 
