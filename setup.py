@@ -10,7 +10,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setup(
     name='openpyxl_style_writer',
-    version='1.1.2',
+    version='1.1.3',
     description='A wrapper for openpyxl to create and use resualbe style in write only mode',
     long_description=long_description,
     long_description_content_type='text/markdown',
