@@ -9,7 +9,7 @@ class DefaultStyle:
     border_params = None
 
     # font
-    font_size = 14
+    font_size = 11
     font_name = 'Calibri'
     font_bold = False
     font_italic = False
@@ -20,25 +20,25 @@ class DefaultStyle:
 
     # fill
     fill_pattern = 'solid'
-    fill_color = 'fcfcfc'
+    fill_color = 'ffffff'
 
     # alignment
-    ali_horizontal = 'center'
-    ali_vertical = 'center'
+    ali_horizontal = None
+    ali_vertical = 'bottom'
     ali_text_rotation = 0
     ali_wrap_text = False
     ali_shrink_to_fit = False
     ali_indent = 0
 
     # border
-    border_style_top = None
-    border_style_right = None
-    border_style_left = None
-    border_style_bottom = None
-    border_color_top = 'ff000000'
-    border_color_right = 'ff000000'
-    border_color_left = 'ff000000'
-    border_color_bottom = 'ff000000'
+    border_style_top = 'thin'
+    border_style_right = 'thin'
+    border_style_left = 'thin'
+    border_style_bottom = 'thin'
+    border_color_top = 'C0C0C0'
+    border_color_right = 'C0C0C0'
+    border_color_left = 'C0C0C0'
+    border_color_bottom = 'C0C0C0'
 
     # protect
     protect = False
