@@ -1,3 +1,5 @@
+import copy
+
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Protection, Side
 
 
@@ -188,6 +190,9 @@ class CustomStyle(DefaultStyle):
     border_params = None
 
     def __init__(self, **kwargs):
+        self._set_style(**kwargs)
+
+    def _set_style(self, **kwargs):
         # font settings
         if kwargs.get('font_params'):
             self.font_params = kwargs.get('font_params')
@@ -225,12 +230,18 @@ class CustomStyle(DefaultStyle):
             self.border_color_bottom = kwargs.get('border_color_bottom', self.border_color_bottom)
 
         if kwargs.get('protect'):
-            self.protect = True
+            self.protect = kwargs.get('protect', False)
 
         if kwargs.get('number_format'):
             self.number_format = kwargs.get('number_format')
 
         self.apply_settings()
+
+    def clone_and_modify(self, **kwargs):
+        cloned_style = copy.deepcopy(self)
+        cloned_style._set_style(**kwargs)
+        cloned_style.apply_settings()
+        return cloned_style
 
     def apply_settings(self):
         if self.font_params:

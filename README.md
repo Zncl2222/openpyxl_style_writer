@@ -1,18 +1,21 @@
+# openpyxl_style_writer
+
 ![licence](https://img.shields.io/github/license/Zncl2222/openpyxl_style_writer)
 [![ci](https://img.shields.io/github/actions/workflow/status/Zncl2222/openpyxl_style_writer/github-pre-commit.yml?logo=pre-commit&label=pre-commit)](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/github-pre-commit.yml)
 [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Zncl2222/openpyxl_style_writer/pytest.yml?logo=pytest&label=pytest)](https://github.com/Zncl2222/openpyxl_style_writer/actions/workflows/pytest.yml)
 [![codecov](https://codecov.io/gh/Zncl2222/openpyxl_style_writer/graph/badge.svg?token=UP6M8SCC14)](https://codecov.io/gh/Zncl2222/openpyxl_style_writer)
 ![language](https://img.shields.io/badge/Solutions-black.svg?style=flat&logo=python)
 
-
-# openpyxl_style_writer
 This is a wrapper base on [openpyxl](https://pypi.org/project/openpyxl/) package. The original feature to create resuable style ([NameStyled](https://openpyxl.readthedocs.io/en/stable/styles.html#creating-a-named-style)) is not avaliable for [write only mode](https://openpyxl.readthedocs.io/en/stable/optimized.html#write-only-mode). Thus this package aimed to provide a easy way for user to create resuable styles and use it on [write only mode](https://openpyxl.readthedocs.io/en/stable/optimized.html#write-only-mode) easily
 
 # Installation
+
 ```$ pip install openpyxl_style_writer ```
 
 # Usage
+
 ### Example
+
 ```python
 from openpyxl_style_writer import CustomStyle, DefaultStyle, RowWriter
 
@@ -135,6 +138,44 @@ custom_title_style = CustomStyle(
 )
 ```
 
+If you need to declare multiple styles, and many of them are very similar, you
+can use the `clone_and_modify` function to streamline the process. For example,
+if you need to create blue_title_style, red_title_style, and green_title_style,
+the straightforward method involves creating each one individually:
+
+```python
+blue_title_style = CustomStyle(
+    font_bold=True,
+    font_color='0000ff',
+    font_size=15
+)
+red_title_style = CustomStyle(
+    font_bold=True,
+    font_color='ff0000',
+    font_size=15
+)
+green_title_style = CustomStyle(
+    font_bold=True,
+    font_color='00ff00',
+    font_size=15
+)
+```
+
+However, with the clone_and_modify method, you can create them more efficiently:
+
+```python
+blue_title_style = CustomStyle(
+    font_bold=True,
+    font_color='0000ff',
+    font_size=15
+)
+red_title_style = blue_title_style.clone_and_modify(font_color='ff0000')
+green_title_style = blue_title_style.clone_and_modify(font_color='ff0000')
+```
+
+This approach is especially helpful when there are many parameters to input in
+a CustomStyle instance.
+
 ## Advanced Usage
 
 In scenarios where you want to establish a collection of reusable styles for your Excel documents or if you have a variety of different Excel outputs, you can define a base class containing multiple custom styles and then inherit from this base class in your Excel class.
@@ -158,6 +199,10 @@ class BaseExcelWriter(RowWriter):
     }
     blue_font_style = CustomStyle(font_params=blue_font)
     cyan_fill_style = CustomStyle(fill_params=cyan_title_pattern)
+    # Clone a existed style and modify font params
+    cyan_fill_with_blue_font = cyan_fill_style.cloned_and_modify(
+        font_params=blue_font
+    )
 
 
 class ExampleExcel(BaseExcelWriter):
@@ -169,6 +214,10 @@ class ExampleExcel(BaseExcelWriter):
         self.create_row()
         for idx, _ in enumerate(self.first_row):
             self.row_append(idx, style=self.blue_font_style)
+        self.row_append(
+            'Clone_and_modify_cell',
+            style=self.cyan_fill_with_blue_font
+        )
         self.create_row()
         self.save(file_name)
 
@@ -183,8 +232,8 @@ if __name__ == '__main__':
     example.create('example.xlsx')
 ```
 
-
 ## List of Key words in openpyxl_style_writer
+
 This is a list of the key words in openpyxl_style_writer and how it map to the attributes of openpyxl
 
 <div align='center'>

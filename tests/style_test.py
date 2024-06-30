@@ -388,3 +388,30 @@ class TestStylesArgs:
         assert custom.ali_horizontal == expected_ali_horizontal
         assert custom.ali_vertical == expected_ali_vertical
         assert custom.ali_wrap_text == expected_ali_wrap_text
+
+
+@pytest.mark.parametrize(
+    'original_color, modified_color, expected_original_color, expected_modified_color',
+    [
+        ('ff0000', '0000ff', '00ff0000', '000000ff'),
+        ('00ff00', 'ff00ff', '0000ff00', '00ff00ff'),
+        ('0000ff', 'ffff00', '000000ff', '00ffff00'),
+    ],
+)
+def test_clone_and_modify(
+    original_color,
+    modified_color,
+    expected_original_color,
+    expected_modified_color,
+):
+    original_style = CustomStyle(font_size=19, font_color=original_color, font_bold=True)
+
+    assert original_style.font.size == 19
+    assert original_style.font.color.rgb == expected_original_color
+    assert original_style.font.bold is True
+
+    modified_style = original_style.clone_and_modify(font_color=modified_color)
+
+    assert modified_style.font.size == 19
+    assert modified_style.font.color.rgb == expected_modified_color
+    assert modified_style.font.bold is True
