@@ -170,7 +170,7 @@ blue_title_style = CustomStyle(
     font_size=15
 )
 red_title_style = blue_title_style.clone_and_modify(font_color='ff0000')
-green_title_style = blue_title_style.clone_and_modify(font_color='ff0000')
+green_title_style = blue_title_style.clone_and_modify(font_color='00ff00')
 ```
 
 This approach is especially helpful when there are many parameters to input in
